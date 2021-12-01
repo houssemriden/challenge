@@ -5,9 +5,10 @@
   tasks:
   
 
-          - name : Creating User with ssh key 
+          - name : Creating User with ssh key and setting privileges
             ansible.builtin.user : 
              name : forescout
+             shell : /bin/rbash #restricted bash is going to be used to give minimum access we can also use /bin/false 
              generate_ssh_key: yes
           - name : Setting Authorized key for SSH Authentication
             ansible.posix.authorized_key:
