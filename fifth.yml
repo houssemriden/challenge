@@ -1,0 +1,22 @@
+
+- hosts : all
+  become : yes 
+  become_user : root
+  tasks:
+  
+                # We had to use internet because tpc is not installed on ubuntu by default
+                # also downloading tcpreplay source code and run it requires some additional libraries 
+          - name: Update repositories cache and install Tcpreplay package
+            apt:
+             name: tcpreplay
+             update_cache: yes
+          - name: Add privileges to the forscout user for (tcpdump and tcpreplay)
+            become : true
+            ansible.builtin.lineinfile:
+             path: /etc/sudoers
+             line: forescout ALL=(ALL) NOPASSWD:/bin/tcpreplay, /usr/sbin/tcpdump, /usr/bin/kill
+             create: yes
+          
+
+
+

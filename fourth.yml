@@ -1,0 +1,16 @@
+- name : Downloading and copying file to forescout user
+  hosts : all
+  become : yes 
+  become_user : root
+  tasks:
+  
+
+          - name : Download pcap file
+            delegate_to: localhost 
+            get_url :
+             url : "{{ ur }}"
+             dest : /home/cloud_user/ansible 
+          - name : Copying pcap file to forescout's home 
+            ansible.builtin.copy : 
+             src : /home/cloud_user/ansible/smallFlows.pcap
+             dest : /home/forescout

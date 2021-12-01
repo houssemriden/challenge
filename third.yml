@@ -1,0 +1,29 @@
+- name : Forescout user Management 
+  hosts : all
+  become : yes 
+  become_user : root
+  tasks:
+  
+
+          - name : Creating User with ssh key 
+            ansible.builtin.user : 
+             name : forescout
+             generate_ssh_key: yes
+          - name : Setting Authorized key for SSH Authentication
+            ansible.posix.authorized_key:
+             user : forescout
+             manage_dir : no
+             state : present
+             key: "{{ lookup('file', '/home/cloud_user/.ssh/id_rsa.pub')}}"
+          - name : Disabling Password Based Authentication 
+            ansible.builtin.lineinfile:
+             path : /etc/ssh/sshd_config
+             regexp: '^(#\s*)?PasswordAuthentication '
+             line: 'PasswordAuthentication no'
+          - name: Restarting ssh
+            service:
+             name: ssh
+             state: restarted
+         
+
+

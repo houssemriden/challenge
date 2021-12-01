@@ -1,0 +1,13 @@
+- name : Configuring the dummy network interface 
+  hosts : all
+  become : yes 
+  become_user : root
+  tasks:
+  
+
+          - name : Create a dummy network interface named replay 
+            ansible.builtin.shell :  sudo ip link add replay type dummy
+            become : true  
+          - name : Enable Promiscuous mode and start the interface
+            become : true 
+            ansible.builtin.shell :   ip link set replay promisc on && ip link set replay up  
