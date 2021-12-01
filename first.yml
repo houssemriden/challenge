@@ -3,9 +3,9 @@
 - name : Disabling automatic updates
   hosts : all
   become : yes
-  become_user : cloud_user 
+  become_user : root
   tasks: 
-       - name : disabling automatic updatest (part 1 ) 
+       - name : disabling automatic update(part 1 ) 
          ansible.builtin.lineinfile: 
            path : /etc/apt/apt.conf.d/20auto-upgrades
            search_string: 'APT::Periodic::Unattended-Upgrade "1";'

@@ -9,8 +9,12 @@
             delegate_to: localhost 
             get_url :
              url : "{{ ur }}"
-             dest : /home/cloud_user/ansible 
+             dest : /home/cloud_user/ansible/
+          - name : Getting file name 
+            ansible.builtin.shell: basename {{ ur }}
+            register: ui
+            ignore_errors: true
           - name : Copying pcap file to forescout's home 
             ansible.builtin.copy : 
-             src : /home/cloud_user/ansible/smallFlows.pcap
+             src : /home/cloud_user/ansible/{{ ui.stdout }}
              dest : /home/forescout
