@@ -1,1 +1,2 @@
-172.31.105.158
+172.31.105.158 ansible_become_pass=password_here #in case we dont want to type the password everytime we run the playbooks
+ 
