@@ -10,13 +10,18 @@
             apt:
              name: tcpreplay
              update_cache: yes
-          - name: Add privileges to the forscout user for (tcpdump and tcpreplay)
-            become : true
-            ansible.builtin.lineinfile:
-             path: /etc/sudoers
-             line: forescout ALL=(ALL) NOPASSWD:/bin/tcpreplay, /usr/sbin/tcpdump, /usr/bin/kill
-             create: yes
-          
-
-
-
+          - name: Giving capability to run tcpreplay
+            community.general.capabilities:
+              path: /usr/bin/tcpreplay
+              capability: CAP_NET_ADMIN,CAP_NET_RAW+ep
+              state: present
+          - name: Giving capability to run tcpdump
+             community.general.capabilities:
+              path: /usr/bin/tcpreplay
+              capability: CAP_NET_ADMIN,CAP_NET_RAW+ep
+              state: present
+          - name: Giving capability to stop tcpreplay and tcpdump
+            community.general.capabilities:
+              path: /usr/bin/tcpreplay
+              capability: CAP_NET_ADMIN,CAP_NET_RAW+ep
+              state: present
